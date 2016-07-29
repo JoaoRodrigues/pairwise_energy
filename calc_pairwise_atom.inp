@@ -63,8 +63,8 @@ end
 ! Get interfacial residues of chain A (receptor)
 ! Assume chains A & B
 !
-do (store1 = 1) (byres (segid A and
-                        (not segid A) around $interface_dist_cutoff))
+do (store1 = 1) (segid A and
+                        (not segid A) around $interface_dist_cutoff)
 
 evaluate ($buffer_file = $coorfile - ".pdb" + ".pwa_ene")
 buffer energies to=file=$buffer_file end
@@ -80,7 +80,7 @@ for $id_a in id (attr store1 = 1) loop res_a
     show (name) (id $id_a)
     evaluate ($name_a = $result)
 
-    for $id_b in id ( segid B and (segid A and resid $resi_a) around $interface_dist_cutoff ) loop res_b
+    for $id_b in id ( segid B and (segid A and resid $resi_a and name $name_a) around $interface_dist_cutoff ) loop res_b
         show (resid) (id $id_b)
         evaluate ($resi_b = $result)
         show (resn) (id $id_b)
